@@ -81,9 +81,9 @@ SELECT TOP (100) * FROM dbo.VoteTypes
 
 
 /* check the stats */
-SELECT t.name,
+SELECT t.name AS TableName,
 	COL_NAME(s.object_id, sc.column_id) AS ColumnName,
-    s.name,
+    s.name AS StatName,
     s.auto_created,
     s.user_created,
     s.no_recompute,
@@ -125,6 +125,10 @@ SELECT TOP 10
        CONVERT(VARCHAR(MAX), p.ParentId) + '|' + CONVERT(VARCHAR(10), p.Id) AS SortOrder
 FROM dbo.Posts AS p
 WHERE p.ParentId = 0;
+
+
+
+
 
 
 /* what about now? */
@@ -176,8 +180,8 @@ WHERE stat.object_id = OBJECT_ID('Posts');
 /*
 From the properties
 --Total rows in table:	17,142,169
---Total rows sampled:	   146,885
--- density - 0.9637317
+--Total rows sampled:	   148,716
+-- density - 0.9637975
 */
 
 
@@ -204,17 +208,19 @@ DBCC SHOW_STATISTICS ('dbo.Posts', '_WA_Sys_0000000F_0519C6AF') WITH DENSITY_VEC
 
 
 -- approximately how many records are unique: (Density)
--- results: 143049.994685693
-SELECT 1/6.990563E-06
+-- results: 143657.995134878
+SELECT 1/6.960977E-06
 
 -- percent of unique rows over rows sampled:
-SELECT (1/7.007021E-06)/146885
+SELECT (1/6.960977E-06)/148716
 
 
 
 /* Get information from histogram */
 
 SELECT * FROM sys.dm_db_stats_histogram(85575343, 2)
+
+
 
 -- TotalRangeAndEqualRows should equal total rows in table
 SELECT SUM(range_rows) AS SumRangeRows, 
@@ -224,7 +230,7 @@ FROM sys.dm_db_stats_histogram(85575343, 2)
 
 
 
--- distinct range rows + number of steps = total unique rows
+-- distinct range rows + number of steps = total unique rows (density)
 SELECT SUM(distinct_range_rows) AS SumRangeRows, 
 	COUNT(*) NoOfSteps, 
 	SUM(distinct_range_rows) + COUNT(*) AS TotalUniqueValues

@@ -24,6 +24,7 @@ FROM sys.stats AS stat
            AND sc.stats_id = stat.stats_id
 	JOIN sys.tables AS t ON sc.object_id = t.object_id
     CROSS APPLY sys.dm_db_stats_properties(stat.object_id, stat.stats_id) AS sp
-WHERE sp.modification_counter > 0
-AND SCHEMA_NAME(t.schema_id) = 'dbo'
+WHERE SCHEMA_NAME(t.schema_id) = 'dbo'
+AND t.name <> 'NewPostMapping'
+AND sp.modification_counter > 0
 ORDER BY t.name, stat.name

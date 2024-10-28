@@ -226,10 +226,10 @@ BEGIN
 	TRUNCATE TABLE #updates
 	SELECT @NewAAPostID = NULL
 
-	IF DATEDIFF(SECOND, @timer, GETDATE()) > 3600 -- 60 seconds per minute * 60 minutes per hour
+	IF DATEDIFF(SECOND, @timer, GETDATE()) > 300 -- 60 seconds per minute * 5 minutes 
 	BEGIN
 		BREAK 
-		SELECT 'Stopping process after 1 hour. Time ended: ' + CONVERT(VARCHAR(40), GETDATE(), 101)
+		SELECT 'Stopping process after 5 minutes. Time ended: ' + CONVERT(VARCHAR(40), GETDATE(), 101)
 	END
 	ELSE 
 	BEGIN

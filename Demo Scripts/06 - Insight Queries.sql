@@ -6,11 +6,10 @@ I care about data insights.
 
 Let's write some queries that help me with this.
 
-Completeness: How complete is the data on my tables? Are there are a lot of null values or empty strings? 
+Completeness: How complete is the data on my tables? 
+	Are there are a lot of null values or empty strings? 
 Uniqueness: How unique is my data?
 Key fields: What fields\statistics are involved the most with my queries? 
-	-- This is in a different query window. Start it now since it takes a bit.
-
 
 */
 
@@ -61,6 +60,13 @@ EXECUTE DBA.dbo.IndexOptimize
 	@FragmentationLevel2 = 30,
 	@UpdateStatistics = 'ALL',
 	@OnlyModifiedStatistics = 'Y'
+
+
+
+
+/*
+Kick of script 07 now since it takes a while to run
+*/
 
 
 /*

@@ -23,6 +23,10 @@ FROM sys.stats AS s
 WHERE t.name = 'Votes'
 
 
+
+
+
+
 /* Run this query.
 
 Wait....This may take a while the first time. Just hit Ctrl + L instead. 
@@ -178,14 +182,14 @@ WHERE stat.object_id = OBJECT_ID('Votes');
 -- calculation for the autostats update: 
 SQL 2014 & earlier compatibility: MIN between 500 + (0.20 * <totalrows>)  
 SQL 2016 & greater compatibility: SQRT(1,000 * <totalrows>) 
-*/
+
 
 SELECT 'Full Table' AS 'Counts based on:',
 	FORMAT(COUNT(1), 'N', 'en-us') AS Total,
 	FORMAT(500 + (0.20 * COUNT(1)), 'N', 'en-us') AS [SQL_2014 -],
 	FORMAT(SQRT(1000 * CONVERT(BIGINT, COUNT(1))), 'N', 'en-us') AS [SQL_2016 +]	
 FROM dbo.Votes
-
+*/
 
 -- run the select with Ctrl + M
 SELECT * FROM dbo.Votes
