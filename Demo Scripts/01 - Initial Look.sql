@@ -107,7 +107,9 @@ FROM sys.stats AS s
 
 
 /* 
-In order for stats to be created or auto-updated, you have to create queries that need them.
+In order for stats to be created or auto-updated, you have to create queries 
+that need them.
+
 So, let's start creating things ...
 */
 
@@ -158,7 +160,9 @@ FROM sys.stats AS s
 /* Let's start by looking at the Posts table more. 
 
 Using sys.dm_db_stats_properties along with other metadata objects to 
-get the column names along with all of the stats on the table.*/
+get the column names along with all of the stats on the table.
+*/
+
 SELECT sp.stats_id,
        stat.name,
        COL_NAME(stat.object_id, sc.column_id) AS ColumnName,
@@ -183,7 +187,7 @@ From the properties
 --Total rows sampled:	   148,716
 -- density - 0.9637975
 */
-
+DBCC SHOW_STATISTICS ('dbo.Posts', '_WA_Sys_0000000F_0519C6AF')
 
 /* Similar query, but this time for the histogram */
 SELECT sp.stats_id,
@@ -203,7 +207,7 @@ FROM sys.stats AS stat
 WHERE stat.object_id = OBJECT_ID('Posts');
 
 
-/* Look at the Density */
+/* Look at the Density Vector */
 DBCC SHOW_STATISTICS ('dbo.Posts', '_WA_Sys_0000000F_0519C6AF') WITH DENSITY_VECTOR
 
 

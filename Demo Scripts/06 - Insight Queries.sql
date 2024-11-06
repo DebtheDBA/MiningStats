@@ -106,6 +106,7 @@ FROM sys.stats AS stat
     OUTER APPLY sys.dm_db_stats_histogram(stat.object_id, stat.stats_id) AS sh
 WHERE OBJECT_SCHEMA_NAME(stat.object_id) = 'dbo'
 AND  sc.stats_column_id = 1
+AND c.object_id <> OBJECT_ID(N'dbo.NewPostMapping')
 GROUP BY OBJECT_SCHEMA_NAME(stat.object_id),
          OBJECT_NAME(stat.object_id),
          COL_NAME(stat.object_id, sc.column_id),

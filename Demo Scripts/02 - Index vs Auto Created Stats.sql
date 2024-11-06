@@ -157,7 +157,8 @@ WHERE UserID IS NOT NULL
 AND Id < 10000000;
 
 
-/* Adding columns to show where auto updates should be triggered the next time the stats are needed */
+/* Adding columns to show where auto updates should be triggered 
+the next time the stats are needed */
 SELECT sp.stats_id,
        name,
        COL_NAME(stat.object_id, sc.column_id) AS ColumnName,
